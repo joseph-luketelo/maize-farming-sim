@@ -1,0 +1,17 @@
+const config = {
+  api: {
+    common: {
+      root: '/',
+      path: 'api/'     
+    },
+
+    user: {
+      info: 'user/current/',
+      login: 'api-auth/login/',
+      logout: 'api-auth/logout/',
+      getAll: 'user/'
+    },
+  }   
+}
+
+export default config

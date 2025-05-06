@@ -239,7 +239,7 @@ String.prototype.capitalize = function () {
 }
 
 
-function HomePage() {
+function Home() {
     // --- State Management ---
     const [farmStats, setFarmStats] = useState(null);
     const [initialFarmStats, setInitialFarmStats] = useState(null); // State to store initial stats
@@ -796,4 +796,4 @@ String.prototype.capitalize = function () {
 }
 
 
-export default HomePage;
+export default Home;
