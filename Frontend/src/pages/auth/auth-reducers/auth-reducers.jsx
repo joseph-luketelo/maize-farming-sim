@@ -5,7 +5,8 @@ const initialState = {
   accountCreationKey: '',
   accountPasswordResetKey: '',
   accountPasswordForgotKey: '',
-  accountApprovalSuccess: false
+  accountApprovalSuccess: false,
+  isLoggedIn: false
 }
 
 export default function authReducer(state = initialState, action) {
@@ -20,6 +21,8 @@ export default function authReducer(state = initialState, action) {
       return { ...state, accountPasswordForgotKey: action.key }
     case authActions.SEND_APPROVE_ACCOUNT_SUCCESS:
       return { ...state, accountApprovalSuccess: true }
+      case authActions.TOGGLE_IS_LOGGED_IN:
+      return { ...state, isLoggedIn: action.value }
     default:
       return state
   }

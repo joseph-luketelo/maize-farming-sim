@@ -1,0 +1,148 @@
+.fdw-logo-new {
+    left: 16px;
+    position: absolute;
+    top: 11px;
+    height: 38px;
+    width: 248px;
+  }
+  .data-explorer {
+    position: absolute;
+    left: 138px;
+    top: 21.5px;
+    color: #ffffff;
+    height: 24px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17.5px;
+    line-height: 24px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .header-right-titles .ant-menu-submenu-title {
+    color: #096640 !important;
+  }
+  
+  .header-right-titles .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover::after,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active::after,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open::after,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open::after,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected::after {
+    color: #096640;
+    border-bottom: 2px solid #096640 !important;
+  }
+  
+  .header-right-titles .ant-menu-light .ant-menu-item:hover,
+  .ant-menu-light .ant-menu-item-active,
+  .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+  .ant-menu-light .ant-menu-submenu-active,
+  .ant-menu-light .ant-menu-submenu-title:hover {
+    color: #096640 !important;
+  }
+  .header-right-titles .ant-menu-light .ant-menu-item:hover,
+  .ant-menu-light .ant-menu-item-active,
+  .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+  .ant-menu-light .ant-menu-submenu-active,
+  .ant-menu-light .ant-menu-submenu-title:hover {
+    color: #096640 !important;
+  }
+  .help-icons {
+    color: #096640;
+    padding-right: 18px;
+  }
+  .help-heading {
+    color: #096640;
+    font-family: 'OpenSans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .help-menu-item {
+    color: #212721;
+    font-weight: 400;
+    font-family: 'OpenSans';
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+  .help-menu-item:last-child {
+    margin-bottom: 28px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .help-menu-item:hover {
+    background: #f4f5f5;
+    color: #212721 !important;
+  }
+  .data-explorer-help {
+    font-family: 'OpenSans';
+    padding-top: 24px;
+    padding-left: 24px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #212721;
+    display: flex;
+    align-items: center;
+  }
+  .data-explorer-help img {
+    margin-right: 10px;
+    text-align: center;
+  }
+  .data-explorer-help-email-title {
+    margin-bottom: 0px;
+    font-family: 'OpenSansBold';
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .data-explorer-help-logout {
+    padding-left: 0px;
+    outline: none;
+    border: none;
+    color: #096640 !important;
+  }
+  .data-explorer-manage-preferences-link {
+    padding-right: 15px;
+    outline: none;
+    border: none;
+    font-size: 14px;
+    color: #096640;
+  }
+  .data-explorer-vl {
+    border-left: 1px solid #000000;
+    opacity: 8%;
+    height: 32px;
+    padding-right: 15px;
+  }
+  .help-resources-title {
+    margin-bottom: 8px;
+    margin-top: 24px;
+    font-size: 14px;
+    line-height: 24px;
+    font-family: 'OpenSansBold';
+    margin-left: 24px;
+  }
+  .header-left-group {
+    display: flex;
+    width: 50%;
+  }
+  .header-left-group a {
+    width: 250px;
+  }
+  .header-pages-group {
+    display: flex;
+    height: 64px;
+    align-items: center;
+  }
+  .header-pages-group button {
+    border: transparent;
+    margin-bottom: 4px;
+    font-family: 'OpenSansSemi';
+  }
+  .header-pages-group button:hover {
+    color: #096640 !important;
+  }
+  

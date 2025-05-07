@@ -12,6 +12,7 @@ const authActions = {
     SET_LOGOUT_REQUEST: 'SET_LOGOUT_REQUEST',
     SEND_APPROVE_ACCOUNT_REQUEST: 'SEND_APPROVE_ACCOUNT_REQUEST',
     SEND_APPROVE_ACCOUNT_SUCCESS: 'SEND_APPROVE_ACCOUNT_SUCCESS',
+    TOGGLE_IS_LOGGED_IN: 'TOGGLE_IS_LOGGED_IN',
     fetchUserDetailsRequest: () => ({ type: authActions.FETCH_USER_DETAILS_REQUEST }),
     fetchUserDetailsSuccess: (userDetails) => ({
       type: authActions.FETCH_USER_DETAILS_SUCCESS,
@@ -33,7 +34,11 @@ const authActions = {
       new_password2
     }),
     sendApproveAccountRequest: (key) => ({ type: authActions.SEND_APPROVE_ACCOUNT_REQUEST, key }),
-    sendApproveAccountSuccess: () => ({ type: authActions.SEND_APPROVE_ACCOUNT_SUCCESS })
+    sendApproveAccountSuccess: () => ({ type: authActions.SEND_APPROVE_ACCOUNT_SUCCESS }),
+    toggleIsLoggedIn: (value) => ({
+      type: authActions.TOGGLE_IS_LOGGED_IN,
+      value
+    }),
   }
   
   export default authActions

@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignIn.css'; // Import the CSS file
+import authActions from './auth-actions/auth-actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,7 +26,8 @@ function LoginPage() {
 
       const data = await response.json();
       if (data === 'Login successful!') {
-        navigate('/home');
+        dispatch(authActions.toggleIsLoggedIn(true))
+        navigate('/');
       } else {
         setError(data.message || 'Login failed. Please check your credentials.');
       }
