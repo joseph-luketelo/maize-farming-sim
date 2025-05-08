@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SignIn.css'; // Import the CSS file
+import { useSelector, useDispatch } from 'react-redux'
 import authActions from './auth-actions/auth-actions';
-import { useDispatch, useSelector } from 'react-redux';
+import './SignIn.css'; // Import the CSS file
+import Home from '../Home';
 
 function LoginPage() {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -37,7 +39,7 @@ function LoginPage() {
     }
   };
 
-  return (
+  return !isLoggedIn ? (
     <div className="login-container">
       <div className="login-form">
         <h2>Login</h2>
@@ -72,7 +74,7 @@ function LoginPage() {
         </p>
       </div>
     </div>
-  );
+  ): <Home/>
 }
 
 export default LoginPage;

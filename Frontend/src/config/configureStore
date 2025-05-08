@@ -1,19 +1,23 @@
-import { applyMiddleware, createStore } from 'redux'
-import createSagaMiddleware from 'redux-saga'
-
+import { createStore } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import rootReducer from './rootReducer'
-import * as sagas from './sagas'
 
-export default function configureStore() {
-  const sagaMiddleware = createSagaMiddleware()
-  const store = createStore(
-    rootReducer,
-    {},
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    //applyMiddleware(sagaMiddleware) // Apply middleware directly without composeWithDevTools
-  )
+const persistConfig = {
+  key: 'root', // key for localStorage
+  storage,
+  // Optionally, you can specify which reducers to persist
+  // whitelist: ['auth', 'settings'],
+  // blacklist: ['ui'] // reducers you don't want to persist
+};
 
-  //Object.values(sagas).forEach(sagaMiddleware.run.bind(sagaMiddleware))
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-  return store
-}
+export const store = createStore(
+  persistedReducer,
+  {}
+);
+
+export const persistor = persistStore(store);
+
+

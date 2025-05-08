@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import SignIn from './/auth/SignIn'
 // --- Game Configuration ---
 const NUM_ROUNDS = 6; // Number of growth stages/weeks in the simulation
 const INITIAL_MARKET_PRICE_RANGE = [20000, 40000]; // KES per ton (Still kept for potential future use or context, but not used in current outcome)
@@ -240,6 +243,8 @@ String.prototype.capitalize = function () {
 
 
 function Home() {
+      const navigate = useNavigate();
+
     // --- State Management ---
     const [farmStats, setFarmStats] = useState(null);
     const [initialFarmStats, setInitialFarmStats] = useState(null); // State to store initial stats
@@ -262,7 +267,7 @@ function Home() {
     const [initialMaizeUnitsInput, setInitialMaizeUnitsInput] = useState(''); // Input for maize units
     const [inputError, setInputError] = useState('');
     const [gameError, setGameError] = useState(null); // New state for game errors
-
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
 
     // --- Helper Functions (Defined inside App for scope) ---
 
@@ -423,6 +428,7 @@ function Home() {
 
     // Effect to handle the start of a new round
     useEffect(() => {
+        isLoggedIn? navigate('/') :  navigate('/login')
         if (currentRound > 0 && currentRound <= NUM_ROUNDS && farmStats !== null && maizeUnits !== null) {
             setCurrentGrowthStage(GROWTH_STAGES[currentRound - 1]); // Update growth stage
             // Apply random event
@@ -530,7 +536,7 @@ function Home() {
 
     // Render initial input form
     if (gamePhase === 'initial_input') {
-        return (
+        return isLoggedIn ?(
             <>
             <div className="bg-green-100 p-4 flex min-h-screen items-center justify-center">
                 <div className="bg-white p-8 w-full max-w-md rounded-lg shadow-lg">
@@ -604,7 +610,8 @@ function Home() {
                 </div>
             </div>
             </>
-        );
+        ):
+        <SignIn />;
     }
 
     // Render game over screen
