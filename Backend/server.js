@@ -1,5 +1,4 @@
 
-require("dotenv").config()
 const db_url = `mysql://root:pDEbQwPBxPtjiFLpuEVTeRrjVmWMjkwM@mysql.railway.internal:3306/railway`
 
 const express = require(`express`)
