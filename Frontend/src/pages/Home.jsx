@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import SignIn from './/auth/SignIn'
+import { GROWTH_STAGES, EMOJI, DECISIONS, EVENTS } from '../utils/helper'
 // --- Game Configuration ---
 const NUM_ROUNDS = 6; // Number of growth stages/weeks in the simulation
 const INITIAL_MARKET_PRICE_RANGE = [20000, 40000]; // KES per ton (Still kept for potential future use or context, but not used in current outcome)
@@ -10,108 +11,11 @@ const DEFAULT_INITIAL_RAINFALL = 20; // Default rainfall for round 1 before even
 const BASE_SURVIVAL_RATE_PER_STAGE = 95; // Base percentage of maize units that survive each stage under ideal conditions
 const DEFAULT_INITIAL_HEALTH = 100; // Default health to start with once germination occurs
 
-// --- Growth Stages Mapping ---
-const GROWTH_STAGES = [
-    "Germination",
-    "Seedling",
-    "Vegetative Growth",
-    "Flowering",
-    "Grain Filling",
-    "Maturity (Harvest-Ready)"
-];
-
-// --- Emojis for Visualization ---
-const EMOJI = {
-    'moisture': '💧',
-    'health': '🌱',
-    'fertilizer': '✨',
-    'money': '💰',
-    'maize': '🌽', // Maize units emoji
-    'temp': '🌡️', // Thermometer emoji
-    'rainfall': '🌧️', // Cloud with rain emoji
-    'event': '📰',
-    'decision': '✅',
-    'survival': '💪', // Survival emoji
-    'loss': '💔', // Loss emoji
-    'error': '❌' // Error emoji
-};
-
-// --- Decisions ---
-// Decisions now primarily influence stats
-const DECISIONS = [
-    { 'description': 'Irrigate Farm', 'base_cost_per_unit': 0.05, 'effects': { 'moisture': +45 } }, // Cost per maize unit
-    { 'description': 'Apply Fertilizer', 'base_cost_per_unit': 0.10, 'effects': { 'fertilizer_applied': 0.01 } }, // Cost per maize unit, amount applied per unit
-    { 'description': 'Spray Pesticide', 'base_cost_per_unit': 0.08, 'effects': { 'health': +30 } }, // Cost per maize unit
-    { 'description': 'Weed the Fields', 'base_cost_per_unit': 0.06, 'effects': { 'health': +15 } }, // Cost per maize unit
-    { 'description': 'Do Nothing', 'base_cost_per_unit': 0, 'effects': {} },
-    { 'description': 'Improve Drainage', 'base_cost_per_unit': 0.07, 'effects': { 'moisture': -10 } } // Cost per maize unit
-];
 
 // Helper to find a decision object by its description
 const getDecisionByDescription = (description) => {
     return DECISIONS.find(decision => decision.description === description);
 };
-
-
-// --- Events ---
-// Events now include weather and primarily affect stats
-const EVENTS = [
-    {
-        'description': "A dry spell continues, the soil is parched. Your maize plants are showing signs of stress.",
-        'effects': { 'moisture': -25, 'health': -10 },
-        'avg_temp': 30, 'rainfall': 5
-    }, // High temp, low rain
-    {
-        'description': "Unexpected heavy rains lash the farm. While moisture is high, there's a risk of waterlogging.",
-        'effects': { 'moisture': +35, 'health': -5 }, // Small health penalty for potential waterlogging
-        'avg_temp': 22, 'rainfall': 60
-    }, // Moderate temp, high rain
-    {
-        'description': "You notice small insects on the leaves. It appears to be a mild pest infestation.",
-        'effects': { 'health': -15 }, 'base_cost': 500, // Event can also have a base cost
-        'avg_temp': 26, 'rainfall': 15
-    }, // Moderate temp/rain
-    {
-        'description': "Large swarms of locusts have been reported in the region. Your farm is hit by a severe infestation.",
-        'effects': { 'health': -40 }, 'base_cost': 1500,
-        'avg_temp': 28, 'rainfall': 10
-    }, // Moderate temp/rain
-    {
-        'description': "Global supply chain issues have driven up the cost of agricultural inputs.",
-        'effects': { 'fertilizer_cost_multiplier': 1.7 },
-        'avg_temp': 25, 'rainfall': 20
-    }, // Moderate temp/rain
-    {
-        'description': "A new local supplier has entered the market, driving down fertilizer prices.",
-        'effects': { 'fertilizer_cost_multiplier': 0.6 },
-        'avg_temp': 24, 'rainfall': 25
-    }, // Moderate temp/rain
-    {
-        'description': "Ideal temperatures and sunshine this week provide excellent growing conditions.",
-        'effects': { 'health': +15 },
-        'avg_temp': 27, 'rainfall': 18
-    }, // Good growing weather
-    {
-        'description': "Persistent rain has encouraged rapid weed growth across the fields.",
-        'effects': { 'health': -12 }, 'base_cost': 400,
-        'avg_temp': 23, 'rainfall': 30
-    }, // Cooler, wetter
-    {
-        'description': "Reports indicate a strong demand for maize at the national level.",
-        'effects': { 'market_price_multiplier': 1.3 }, // Market events still exist but don't directly affect survival
-        'avg_temp': 26, 'rainfall': 17
-    }, // Moderate temp/rain
-    {
-        'description': "A surplus harvest in a neighboring region is expected to flood the market.",
-        'effects': { 'market_price_multiplier': 0.75 }, // Market events still exist
-        'avg_temp': 25, 'rainfall': 20
-    }, // Moderate temp/rain
-    {
-        'description': "The week passes without any major environmental or market changes.",
-        'effects': {},
-        'avg_temp': 25, 'rainfall': 20
-    } // Baseline moderate weather
-];
 
 // Helper function to calculate decision cost
 const calculateDecisionCost = (decision, maizeUnits, fertilizerCostMultiplier) => {
@@ -532,6 +436,34 @@ function Home() {
     };
 
 
+    const handleClick = (event) => {
+        document.getElementById('easy-level').style.backgroundColor = ""
+        document.getElementById('medium-level').style.backgroundColor = ""
+        document.getElementById('hard-level').style.backgroundColor = ""
+
+        document.getElementById(event.target.id).style.backgroundColor = "green"
+
+        if (event.target.id === "easy-level"){
+            setInitialMaizeUnitsInput(1)
+            setInitialMoisture(1)
+            setInitialFertilizer(1)
+            setInitialMoney(1)
+        }
+        if (event.target.id === "medium-level"){
+            setInitialMaizeUnitsInput(2)
+            setInitialMoisture(2)
+            setInitialFertilizer(2)
+            setInitialMoney(2)
+        }
+        if (event.target.id === "hard-level"){
+            setInitialMaizeUnitsInput(3)
+            setInitialMoisture(3)
+            setInitialFertilizer(3)
+            setInitialMoney(3)
+        }
+      };
+
+
     // --- Render Logic ---
 
     // Render initial input form
@@ -543,59 +475,40 @@ function Home() {
                     <h2 className="mb-6 text-green-800 text-center text-2xl font-bold">Start Your Farm</h2>
                     {inputError && <p className="text-red-500 mb-4 text-center">{inputError}</p>}
                     {/* Input for Initial Maize Units */}
-                    <div className="mb-4">
-                        <label className="text-gray-700 mb-2 block text-sm font-bold" htmlFor="initialMaizeUnits">
-                            Initial Number of Maize Units (Seeds) {EMOJI['maize']}
-                        </label>
-                        <input
-                            className="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline"
-                            id="initialMaizeUnits"
-                            type="number"
-                            value={initialMaizeUnitsInput}
-                            onChange={(e) => setInitialMaizeUnitsInput(e.target.value)}
-                            min="1"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-gray-700 mb-2 block text-sm font-bold" htmlFor="moisture">
-                            Initial Soil Moisture (0-100) {EMOJI['moisture']}
-                        </label>
-                        <input
-                            className="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline"
-                            id="moisture"
-                            type="number"
-                            value={initialMoisture}
-                            onChange={(e) => setInitialMoisture(e.target.value)}
-                            min="0"
-                            max="100"
-                        />
-                    </div>
+                   
                     {/* Removed Initial Crop Health Input */}
+                    
                     <div className="mb-4">
-                        <label className="text-gray-700 mb-2 block text-sm font-bold" htmlFor="fertilizer">
-                            Initial Fertilizer Available (kg) {EMOJI['fertilizer']}
-                        </label>
-                        <input
-                            className="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline"
-                            id="fertilizer"
-                            type="number"
-                            value={initialFertilizer}
-                            onChange={(e) => setInitialFertilizer(e.target.value)}
-                            min="0"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-gray-700 mb-2 block text-sm font-bold" htmlFor="money">
-                            Initial Money Available (KES) {EMOJI['money']}
-                        </label>
-                        <input
-                            className="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline"
-                            id="money"
-                            type="number"
-                            value={initialMoney}
-                            onChange={(e) => setInitialMoney(e.target.value)}
-                            min="0"
-                        />
+                    <button
+                            id="easy-level"
+                            className="bg-green-500 hover:bg-green-700 text-white py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline"
+                            type="button"
+                            onClick={handleClick}
+                            value="Easy level"
+                        >
+                            Easy level
+                        </button>
+
+                        <button
+                            id="medium-level"
+                            className="bg-green-500 hover:bg-green-700 text-white py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline"
+                            type="button"
+                            onClick={handleClick}
+                            value="Medium level"
+                        >
+                            Medium level
+                        </button>
+
+                        <button
+                            id="hard-level"
+                            className="bg-green-500 hover:bg-green-700 text-white py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline"
+                            type="button"
+                             onClick={handleClick}
+                            value="Hard level"
+                        >
+                            Hard level
+                        </button>
+                       
                     </div>
 
                     <div className="flex items-center justify-center">
@@ -713,7 +626,7 @@ function Home() {
         <div className="bg-green-100 flex min-h-screen flex-col"> {/* Use flex-col for vertical layout */}
             {/* Fixed Top Bar for Stats */}
             {farmStats && maizeUnits !== null && ( // Ensure maizeUnits is not null
-                <div className="bg-green-800 text-white p-4 top-0 left-0 fixed z-10 flex w-full flex-wrap items-center justify-around shadow-md"> {/* Fixed top bar */}
+                <div className="bg-green-800 text-white p-4 left-0 z-10 flex w-full flex-wrap items-center justify-around shadow-md"> {/* Fixed top bar */}
                     <div className="mx-2 text-center">
                         <p className="text-sm font-semibold">{EMOJI['maize']} Maize Units:</p>
                         <p className="text-lg">{maizeUnits}</p>
