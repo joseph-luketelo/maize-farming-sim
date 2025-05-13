@@ -1,3 +1,7 @@
+
+require("dotenv").config()
+const db_url = `mysql://root:pDEbQwPBxPtjiFLpuEVTeRrjVmWMjkwM@mysql.railway.internal:3306/railway`
+
 const express = require(`express`)
 const mysql = require(`mysql`)
 const cors = require(`cors`)
@@ -6,12 +10,14 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password:'',
-    database:'test'
-})
+const db = mysql.createConnection(db_url)
+
+// const db = mysql.createConnection({
+//     host: process.env.DB_HOST,//'localhost',
+//     user: process.env.USER,//'root',
+//     password:process.env.DB_PASSWORD, // ""
+//     database: process.env.DB_DATABASE//'test'
+// })
 
 app.post('/login', (req, res) => {
     const sql = "SELECT * FROM login WHERE username = ? AND password = ?";
