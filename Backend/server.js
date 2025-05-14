@@ -28,9 +28,6 @@ app.post('/login', (req, res) => {
         console.log("END3")
         console.log("START4")
         console.log(data)
-        console.log(data.length)
-        console.log(res)
-        console.log(res.json)
         console.log("END4")
         if(data.length > 0){
             console.log(data)
