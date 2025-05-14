@@ -23,7 +23,12 @@ app.post('/login', (req, res) => {
    
     db.query(sql, [req.body.username, req.body.password], (err, data) => {
         if(err)  return res.json(err)
-            
+        console.log("START3")
+        console.log(err)
+        console.log("END3")
+        console.log("START4")
+        console.log(data)
+        console.log("END4")
         if(data.length > 0){
             console.log(data)
             return res.json("Login successful!")
