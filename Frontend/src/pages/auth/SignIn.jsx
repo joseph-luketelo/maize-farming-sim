@@ -19,12 +19,10 @@ function LoginPage() {
 
     try {
       const response = await fetch(`https://maize-farming-sim-production.up.railway.app/login`, {
+        mode: 'no-cors',
         method: 'POST',
         headers: {
-           "Access-Control-Allow-Headers" : "Content-Type",
-           "Access-Control-Allow-Origin": "*",
-           'Content-Type': 'application/json',
-           "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH"
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
       });
