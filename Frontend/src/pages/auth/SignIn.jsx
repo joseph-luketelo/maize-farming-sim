@@ -29,7 +29,7 @@ function LoginPage() {
       console.log("START")
       console.log(response)
       console.log("END")
-      const data = await response.json();
+      const data = 'Login successful'
       console.log("START2")
       console.log(data)
       console.log("END2")
