@@ -21,7 +21,7 @@ const db = mysql.createConnection(db_url)
 app.post('/login', (req, res) => {
     const sql = "SELECT * FROM login WHERE username = 'jose' AND password = '123456789'";
    
-    db.query(sql, [req.body.username, req.body.password], (err, data) => {
+    db.query(sql, ['jose', '123456789'], (err, data) => {
         if(err)  return res.json(err)
         console.log("START3")
         console.log(err)
