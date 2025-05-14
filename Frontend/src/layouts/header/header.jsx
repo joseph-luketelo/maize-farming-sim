@@ -65,5 +65,5 @@ export default function Header(props) {
         </SubMenu>    
       </Menu>
     </header>
-  ): <SignIn />
+  ): null
 }
