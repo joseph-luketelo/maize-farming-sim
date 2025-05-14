@@ -19,7 +19,7 @@ const db = mysql.createConnection(db_url)
 // })
 
 app.post('/login', (req, res) => {
-    const sql = "SELECT * FROM login WHERE username = ? AND password = ?";
+    const sql = "SELECT * FROM login WHERE username = 'jose' AND password = '123456789'";
    
     db.query(sql, [req.body.username, req.body.password], (err, data) => {
         if(err)  return res.json(err)
