@@ -26,8 +26,13 @@ function LoginPage() {
         },
         body: JSON.stringify({ username, password }),
       });
-
+      console.log("START")
+      console.log(response)
+      console.log("END")
       const data = await response.json();
+      console.log("START2")
+      console.log(data)
+      console.log("END2")
       if (data === 'Login successful!') {
         dispatch(authActions.toggleIsLoggedIn(true))
         navigate('/');
